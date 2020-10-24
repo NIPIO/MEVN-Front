@@ -14,7 +14,9 @@
     "momentjs": "^2.0.0",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
+    "vue-browser-geolocation": "^1.8.0",
     "vue-router": "^3.2.0",
+    "vue2-google-maps": "^0.10.7",
     "vuelidate": "^0.7.5",
     "vuetify": "^2.2.11",
     "vuex": "^3.5.1"

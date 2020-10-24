@@ -27,7 +27,7 @@
 							</v-list-item>
 							<v-card-text>
 								<v-row align="center">
-									<span>Cielo: {{meetDetail.clima.descripcion}}. Humedad: {{meetDetail.clima.humedad}}%. Viento: {{meetDetail.clima.vientoVel}}km/h {{meetDetail.clima.vientoDir}}</span>
+									<span>Cielo: {{meetDetail.clima.descripcion}}.<br> Humedad: {{meetDetail.clima.humedad}}%. Viento: {{meetDetail.clima.vientoVel}}km/h {{meetDetail.clima.vientoDir}}</span>
 								</v-row>
 								<v-row align="center">
 									<v-col class="display-3" cols="12">{{meetDetail.clima.temperatura}}</v-col>
@@ -36,11 +36,9 @@
 						</v-list-item>
 					</v-col>
 				</v-row>
-			    <v-card-actions>
-			      <v-btn color="orange" text >
-			        Share
-			      </v-btn>
-			    </v-card-actions>
+				<v-row>
+					<Map :meetDetail="meetDetail"/>
+				</v-row>
 			  </v-card>
 			</v-col>
 		</v-row>
@@ -49,12 +47,16 @@
 
 <script>
 import axios from "axios";
+import Map from "../components/Map";
 
 export default {
     data() {
         return {
         	meetDetail: [],
         }
+    },
+    components: {
+    	Map
     },
 	methods: {
 	},

@@ -53,17 +53,22 @@ export default {
   data: () => ({
     abrirMenu: false,
     menuItems: [
-      { route: 'encuentros',  icon: 'supervisor_account', title: 'Meetups'},
-      { route: 'crearEncuentro',  icon: 'room', title: 'New'},
+      { route: 'encuentros',  icon: 'supervisor_account', title: 'Encuentros'},
+      { route: 'crearEncuentro',  icon: 'room', title: 'Nuevo'},
       { route: '', icon: 'cancel', title: 'Sesion'},
     ],
-    estaLogueado: true
+    estaLogueado: Boolean
   }),
+  mounted() {
+    this.$root.$on('logueoCorrecto', text => this.estaLogueado = text) //text viene del componente Signin
+  },
   methods: {
     closeSession(title) {
-      title == 'Sesion' ? localStorage.removeItem('user') : null
-      // this.estaLogueado = false
-      this.$router.push('/signin')
+      if(title == 'Sesion') {
+        localStorage.removeItem('user') 
+        this.estaLogueado = false
+        this.$router.push('/signin')
+      }
     }
   }
 };

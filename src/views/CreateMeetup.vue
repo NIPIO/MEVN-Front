@@ -63,6 +63,8 @@ export default {
 			imageURL:'',
 			date:'',
 			time:'',
+			lat:'',
+			lng:'',
 			provincias: [],
 			localidades: [],
 			clima: {},
@@ -104,6 +106,9 @@ export default {
 						'vientoVel' : climaAPI[0].weather.wind_speed,
 						'vientoDir' : climaAPI[0].weather.wing_deg,
 					}
+					this.lat = climaAPI[0].lat 
+					this.lng = climaAPI[0].lon 
+					console.log(climaAPI[0])
 				})
 				.catch((error) => {
 					console.log(error)
@@ -136,7 +141,9 @@ export default {
 					localidad : this.localidad,
 					provincia : this.provincia,
 					src : this.imageURL,
-					clima : this.clima
+					clima : this.clima,
+					lat : this.lat,
+					lng : this.lng
 				}
 				//set it store.js
 				this.createMeetupInAPI(meetUp)

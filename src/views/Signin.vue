@@ -60,6 +60,7 @@
 
 <script>
 import Signup from '../views/Signup'
+import App from '../App'
 import { mapMutations } from "vuex";
 import { validationMixin } from "vuelidate";
 import { required, minLength, maxLength, email, sameAs } from "vuelidate/lib/validators";
@@ -96,6 +97,7 @@ export default {
 					} else {
 						this.saveUserLogged({'mail' : this.email, 'password': this.password}) 
 						this.$router.push('/') 
+						this.$root.$emit('logueoCorrecto', 'true'); //cambio variable del AppVue
 					}
 				})
 		},
@@ -104,7 +106,8 @@ export default {
         } 
     },
 	components: {
-		Signup
+		Signup,
+		App
 	},
     computed: {
 		emailErrors() {
