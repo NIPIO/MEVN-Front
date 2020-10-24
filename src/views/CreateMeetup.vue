@@ -22,12 +22,12 @@
 							<v-text-field v-model="details" name="details" :counter="5" label="Details" required ></v-text-field>
 						</v-col>
 					</v-row>
-					<v-row>
+<!-- 					<v-row>
 						<v-col xs12 sm6 offset-sm3>
 							<v-text-field v-model="imageURL" name="image" :counter="5" label="Image URL" required ></v-text-field>
 							<img :src="imageURL" alt="" height="250" class="ms-auto">
 						</v-col>
-					</v-row>
+					</v-row> -->
 					<v-row>
 						<v-col xs12 sm6 offset-sm3>
 							<v-date-picker v-model="date" :show-current="true"></v-date-picker>
@@ -73,7 +73,7 @@ export default {
 	computed: {
 		//obtengo las localidades de la api publica de acuerdo a la provincia elegida
 		formValid() {
-			return this.provincia !== '' && this.localidad !== '' && this.details !== '' &&  this.imageURL !== '' && this.time !== '' &&  this.date !== ''
+			return this.provincia !== '' && this.localidad !== '' && this.details !== '' && this.time !== '' &&  this.date !== ''
 		}
 	},
 	watch: {
@@ -140,20 +140,19 @@ export default {
 					details : this.details,
 					localidad : this.localidad,
 					provincia : this.provincia,
-					src : this.imageURL,
+					src : '',
 					clima : this.clima,
 					lat : this.lat,
 					lng : this.lng
 				}
 				//set it store.js
 				this.createMeetupInAPI(meetUp)
-				this.$router.push('/')
 			}
 		},
 		createMeetupInAPI (meetUp) {
-			axios.post('http://localhost:3000/encuentros', meetUp)
+			 axios.post('http://localhost:3000/encuentros', meetUp)
 			.then((data)=>{
-				console.log(data)
+				this.$router.push('/')
 			})
 			.catch((error) => {
 				console.log(error)

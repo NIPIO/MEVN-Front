@@ -13,7 +13,7 @@ Vue.use(VueGeoLocation)
 
 Vue.use(VueGoogleMaps, {
   load: {
-	    key: 'AIzaSyATUKnsRFaRRB3Wm98dJTv1ogSFXEUweNY',
+	    key: 'AIzaSyCCGge0AcnsCP2THzX3LI7FIVHObEqYpAo',
 	    libraries: 'places', // This is required if you use the Autocomplete plugin
 	},
 	// installComponents: false
