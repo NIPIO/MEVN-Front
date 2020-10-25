@@ -77,6 +77,8 @@ import { validationMixin } from "vuelidate";
 import { required, minLength, maxLength, email, sameAs } from "vuelidate/lib/validators";
 import { mapMutations } from "vuex";
 import axios from "axios";
+import App from '../App'
+import { API_URL } from '../rutaApi'
 
   export default {
       name: 'Singup',
@@ -90,6 +92,9 @@ import axios from "axios";
       },
       props: {
         value: false
+      },
+      components: {
+        App
       },
       data() {
         return {
@@ -109,15 +114,16 @@ import axios from "axios";
         ...mapMutations(['saveUserLogged']),
         async signUp() {
           this.loading = true
-          axios.get('http://localhost:3000/users/signUp', {params :  { 'email' : this.email , 'password' : this.password }} )
+          axios.get(API_URL + '/users/signUp', {params :  { 'name': this.name, 'email' : this.email , 'password' : this.password }} )
             .then(response=>{
               this.loading = false
               this.text = response.data.mensaje
               this.snackbar = true;
               this.colorSnack = response.data.color
               if (!response.data.existeUsuario) {
-                this.saveUserLogged({'mail' : this.email, 'password': this.password}) 
+                this.saveUserLogged({'name': this.name, 'mail' : this.email, 'password': this.password}) 
                 this.$router.push('/') 
+                this.$root.$emit('logueoCorrecto', 'true'); //cambio variable del AppVue
               }
             })
         },

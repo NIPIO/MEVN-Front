@@ -1,6 +1,6 @@
 <template>
 	<v-container>
-		<v-row wrap>
+		<v-row wrap v-if="!loading" align="center">
 			<v-col xs12>
 			 <v-card class="mx-auto">
 			    <v-img class="white--text align-end" height="200px" :src="meetDetail.src" >
@@ -48,23 +48,35 @@
 <script>
 import axios from "axios";
 import Map from "../components/Map";
+import { API_URL } from '../rutaApi'
 
 export default {
     data() {
         return {
         	meetDetail: [],
+        	meetPromise: null,
+        	loading: true
         }
     },
     components: {
     	Map
     },
-	methods: {
+    watch: {
+		meetDetail: {
+			handler(val){
+				this.loading = false
+			}
+		}
 	},
-	mounted() {
+	created() {
+		this.meetPromise = axios.get(API_URL + '/encuentros/' +  this.$route.params.id)
+	    	.then(res => {
+				this.meetDetail = res.data
+	    	})
+	},
+	async mounted() {
 		/*control de sesion*/ localStorage.getItem('user') != null ? null : this.$router.push('/signin') 
-		//puede que entre desde la url o desde el home. Tengo que renovar la peticion a la api.
-    	axios.get('http://localhost:3000/encuentros/' +  this.$route.params.id)
-    	.then(res => this.meetDetail = res.data)
+		await this.meetPromise
   	},
 }
 </script>

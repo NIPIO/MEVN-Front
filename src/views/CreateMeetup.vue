@@ -1,49 +1,51 @@
 <template>
 <div class="home">
 	<v-container>
-		<v-row>
-			<v-col xs12 sm6 offset-sm3>
-				<h4 class="primary--text">Organizar encuentro</h4>
-			</v-col>
-		</v-row>
-		 <v-row>
-			<v-col xs12>
-				<!-- <v-form> -->
-					<v-row>
-						<v-col xs12 sm6 offset-sm3>
-							<v-select :items="provincias" label="Provincia" v-model="provincia"></v-select>
-						</v-col>
-						<v-col xs12 sm6 offset-sm3>
-							<v-select :items="localidades" label="Localidad" v-model="localidad"></v-select>
-						</v-col>
-					</v-row>
-					<v-row>
-						<v-col xs12 sm6 offset-sm3>
-							<v-text-field v-model="details" name="details" :counter="5" label="Details" required ></v-text-field>
-						</v-col>
-					</v-row>
-<!-- 					<v-row>
-						<v-col xs12 sm6 offset-sm3>
-							<v-text-field v-model="imageURL" name="image" :counter="5" label="Image URL" required ></v-text-field>
-							<img :src="imageURL" alt="" height="250" class="ms-auto">
-						</v-col>
-					</v-row> -->
-					<v-row>
-						<v-col xs12 sm6 offset-sm3>
-							<v-date-picker v-model="date" :show-current="true"></v-date-picker>
-						</v-col>
-						<v-col xs12 sm6 offset-sm3>
-							<v-time-picker v-model="time"></v-time-picker>
-						</v-col>
-					</v-row>
-					<v-row>
-						<v-col xs12 sm6 offset-sm3>
-							<v-btn type="submit"  @click="createMeet()" :disabled="!formValid" color="primary" class="mr-4">Crear encuentro</v-btn>
-						</v-col>
-					</v-row>
-			    <!-- </v-form> -->
-			</v-col>
-		</v-row>
+		<div v-if="provincias.length == 0" align="center">
+		    <v-progress-circular :size="70" :width="7" color="primary" indeterminate ></v-progress-circular> <br>
+		    <span>Cargando Provincias y Localidades</span>
+		</div>
+		<div v-if="provincias.length > 0">
+			<v-row>
+				<v-col xs12 sm6 offset-sm3>
+					<h4 class="primary--text">Organizar encuentro</h4>
+				</v-col>
+			</v-row>
+			 <v-row>
+				<v-col xs12>
+					<!-- <v-form> -->
+						<v-row>
+							<v-col xs12 sm6 offset-sm3>
+								<v-select :items="provincias" label="Provincia" v-model="provincia">
+								</v-select>
+							</v-col>
+							<v-col xs12 sm6 offset-sm3  align="center">
+		    					<v-progress-circular :width="3" color="primary" indeterminate  v-if="provincia.length > 0 && localidades.length == 0" ></v-progress-circular>
+								<v-select :items="localidades" label="Localidad" v-model="localidad" v-if="provincia.length == 0 || localidades.length > 0"></v-select>
+							</v-col>
+						</v-row>
+						<v-row>
+							<v-col xs12 sm6 offset-sm3>
+								<v-text-field v-model="details" name="details" :counter="5" label="Comentarios" required ></v-text-field>
+							</v-col>
+						</v-row>
+						<v-row>
+							<v-col xs12 sm6 offset-sm3>
+								<v-date-picker v-model="date" :show-current="true"></v-date-picker>
+							</v-col>
+							<v-col xs12 sm6 offset-sm3>
+								<v-time-picker v-model="time"></v-time-picker>
+							</v-col>
+						</v-row>
+						<v-row>
+							<v-col xs12 sm6 offset-sm3>
+								<v-btn type="submit"  @click="createMeet()" :disabled="!formValid" color="primary" class="mr-4">Crear encuentro</v-btn>
+							</v-col>
+						</v-row>
+				    <!-- </v-form> -->
+				</v-col>
+			</v-row>
+		</div>
 	</v-container>
 </div>
 </template>
@@ -53,6 +55,7 @@ import axios from "axios";
 import { validationMixin } from "vuelidate";
 import { required, minLength, maxLength, email, sameAs } from "vuelidate/lib/validators";
 import moment from 'moment'
+import { API_URL } from '../rutaApi'
 
 export default {
 	data() {
@@ -118,7 +121,6 @@ export default {
 	},
 	mounted() {
 	/*control de sesion*/ localStorage.getItem('user') != null ? null : this.$router.push('/signin') 
-
 			//obtengo las provincias de la api publica
 			axios.get('https://ws.smn.gob.ar/map_items/weather')
 			.then((response)=>{
@@ -150,7 +152,7 @@ export default {
 			}
 		},
 		createMeetupInAPI (meetUp) {
-			 axios.post('http://localhost:3000/encuentros', meetUp)
+			 axios.post(API_URL + '/encuentros', meetUp)
 			.then((data)=>{
 				this.$router.push('/')
 			})

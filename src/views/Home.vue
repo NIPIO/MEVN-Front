@@ -39,6 +39,7 @@
 </style>
 <script>
 import axios from "axios";
+import { API_URL } from '../rutaApi'
 
 export default {
 
@@ -53,7 +54,7 @@ export default {
 	},
 	mounted() {
 	/*control de sesion*/ localStorage.getItem('user') != null ? null : this.$router.push('/signin')
-		axios.get('http://localhost:3000/encuentros')
+		axios.get(API_URL + '/encuentros')
 		.then(res =>this.meetUps = res.data)
 	}
 }

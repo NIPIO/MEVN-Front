@@ -61,6 +61,7 @@ export default {
   }),
   mounted() {
     this.$root.$on('logueoCorrecto', text => this.estaLogueado = text) //text viene del componente Signin
+    console.log(this.estaLogueado)
   },
   methods: {
     closeSession(title) {

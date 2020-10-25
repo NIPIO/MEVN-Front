@@ -65,6 +65,7 @@ import { mapMutations } from "vuex";
 import { validationMixin } from "vuelidate";
 import { required, minLength, maxLength, email, sameAs } from "vuelidate/lib/validators";
 import axios from "axios";
+import { API_URL } from '../rutaApi'
 
 export default {
     data: () => ({
@@ -87,7 +88,7 @@ export default {
 		...mapMutations(['saveUserLogged']),
 		async signIn() {
 			this.loading = true
-          	axios.get('http://localhost:3000/users/signIn', {params :  { 'email' : this.email , 'password' : this.password }} )
+          	axios.get(API_URL + '/users/signIn', {params : { 'email' : this.email , 'password' : this.password }} )
 				.then(response=>{
 					this.loading = false
 					if (response.data.error) {
