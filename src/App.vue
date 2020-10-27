@@ -60,6 +60,7 @@ export default {
     estaLogueado: Boolean
   }),
   mounted() {
+    localStorage.getItem('user') != null ? null : this.estaLogueado = false
     this.$root.$on('logueoCorrecto', text => this.estaLogueado = text) //text viene del componente Signin
     console.log(this.estaLogueado)
   },
