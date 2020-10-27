@@ -159,15 +159,15 @@ import { API_URL } from '../rutaApi'
         passwordErrors() {
           const errors = [];
           if (!this.$v.password.$dirty) return errors; 
-          !this.$v.password.minLength && errors.push("Password debe tener por lo menos 6 caracteres");
-          !this.$v.password.required && errors.push("Password es necesario.");
+          !this.$v.password.minLength && errors.push("Contraseña debe tener por lo menos 6 caracteres");
+          !this.$v.password.required && errors.push("La contraseña es necesaria.");
           return errors;
         },
         confirmPasswordErrors() {
           const errors = [];
           if (!this.$v.confirmPassword.$dirty) return errors; 
           !this.$v.confirmPassword.sameAsPassword && errors.push("ConfirmPassword debe ser igual a la Password");
-          !this.$v.confirmPassword.required && errors.push("ConfirmPassword es necesario.");
+          !this.$v.confirmPassword.required && errors.push("Debe confirmar la constraseña.");
           return errors;
         }, 
       },

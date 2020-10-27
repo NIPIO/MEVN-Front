@@ -16,7 +16,9 @@
 					<v-col md="6" xs="12">
 					    <v-card-title>Horario de encuentro ({{meetDetail.date}})</v-card-title>
 					    <v-card-text> 
-					    	<v-time-picker v-model="meetDetail.time" :landscape="true" readonly ></v-time-picker>
+					    	<v-col align="center" cols="12">
+					    	<v-time-picker v-model="meetDetail.time" :landscape="width>550" readonly ></v-time-picker>
+					    </v-col>
 				    	</v-card-text>
 					</v-col>
 			    	<v-col md="6" xs="12">
@@ -26,18 +28,23 @@
 							</v-list-item-content>
 							</v-list-item>
 							<v-card-text>
-								<v-row align="center">
-									<span>Cielo: {{meetDetail.clima.descripcion}}.<br> Humedad: {{meetDetail.clima.humedad}}%. Viento: {{meetDetail.clima.vientoVel}}km/h {{meetDetail.clima.vientoDir}}</span>
+								<v-row>
+									<v-col align="center" cols="12">
+										<span>Cielo: {{meetDetail.clima.descripcion}}.<br> Humedad: {{meetDetail.clima.humedad}}%. Viento: {{meetDetail.clima.vientoVel}}km/h {{meetDetail.clima.vientoDir}}</span>
+									</v-col>
 								</v-row>
-								<v-row align="center">
-									<v-col class="display-3" cols="12">{{meetDetail.clima.temperatura}}</v-col>
+								<v-row>
+									<v-col align="center" class="display-3" cols="12">{{meetDetail.clima.temperatura}}
+									</v-col>
 								</v-row>
 							</v-card-text>
 						</v-list-item>
 					</v-col>
 				</v-row>
 				<v-row>
-					<Map :meetDetail="meetDetail"/>
+					<v-col align="center" class="display-3" cols="12">
+						<Map :meetDetail="meetDetail"/>
+					</v-col>
 				</v-row>
 			  </v-card>
 			</v-col>
@@ -55,7 +62,8 @@ export default {
         return {
         	meetDetail: [],
         	meetPromise: null,
-        	loading: true
+        	loading: true,
+        	width:  window.innerWidth
         }
     },
     components: {

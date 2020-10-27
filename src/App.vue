@@ -13,7 +13,7 @@ a {
           <v-list>
             <v-list-item v-for="(item, index) in menuItems" >
               <v-toolbar-items>
-                <router-link :to="item.route">
+                <router-link :to="{ path : '/' + item.route, beforeEnter: (to, from, next) => { window.location.href = to.fullPath.substring(1); } }">
                   <v-btn text>
                     <v-icon>{{item.icon}}</v-icon>
                     {{item.title}}

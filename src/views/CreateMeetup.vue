@@ -1,14 +1,14 @@
 <template>
 <div class="home">
 	<v-container>
-		<div v-if="provincias.length == 0" align="center">
+		<div v-if="provincias.length == 0" align="center"  style="margin-top:30vh">
 		    <v-progress-circular :size="70" :width="7" color="primary" indeterminate ></v-progress-circular> <br>
 		    <span>Cargando Provincias y Localidades</span>
 		</div>
 		<div v-if="provincias.length > 0">
 			<v-row>
-				<v-col xs12 sm6 offset-sm3>
-					<h4 class="primary--text">Organizar encuentro</h4>
+				<v-col xs12 sm6 offset-sm3 cols="12" align="center">
+						<h4 class="primary--text">Organizar encuentro</h4>
 				</v-col>
 			</v-row>
 			 <v-row>
@@ -30,16 +30,17 @@
 							</v-col>
 						</v-row>
 						<v-row>
-							<v-col xs12 sm6 offset-sm3>
-								<v-date-picker v-model="date" :show-current="true"></v-date-picker>
+							<v-col xs12 sm6 offset-sm3 cols="12" align="center">
+								<v-date-picker v-model="date" :min="today" :show-current="true"></v-date-picker>
 							</v-col>
-							<v-col xs12 sm6 offset-sm3>
-								<v-time-picker v-model="time"></v-time-picker>
+							<v-col xs12 sm6 offset-sm3 cols="12" align="center">
+								<v-time-picker v-model="time"  :landscape="width>550"></v-time-picker>
 							</v-col>
 						</v-row>
 						<v-row>
-							<v-col xs12 sm6 offset-sm3>
-								<v-btn type="submit"  @click="createMeet()" :disabled="!formValid" color="primary" class="mr-4">Crear encuentro</v-btn>
+							<v-col xs12 sm6 offset-sm3  align="center" >
+								<v-btn type="submit"  v-if="!creating" @click="createMeet()" :disabled="!formValid" color="primary"class="mr-4">Crear encuentro</v-btn>
+								<v-btn v-else>Creando...</v-btn>
 							</v-col>
 						</v-row>
 				    <!-- </v-form> -->
@@ -71,6 +72,9 @@ export default {
 			provincias: [],
 			localidades: [],
 			clima: {},
+			today: '',
+        	width:  window.innerWidth,
+        	creating: false
 		}
 	},
 	computed: {
@@ -131,11 +135,13 @@ export default {
 			.catch((error) => {
 				console.log(error)
 			})
-	
+
+			this.today =  moment().format('YYYY-MM-DD')	
 	},
 	methods: {
 		createMeet() {
 			if (this.formValid) {
+				this.creating = true
 				const meetUp =  {
 					date : moment(this.date).format('DD/MM/YYYY'),
 					time : this.time,
@@ -145,7 +151,8 @@ export default {
 					src : '',
 					clima : this.clima,
 					lat : this.lat,
-					lng : this.lng
+					lng : this.lng,
+					isLoaded : false
 				}
 				//set it store.js
 				this.createMeetupInAPI(meetUp)
@@ -154,12 +161,15 @@ export default {
 		createMeetupInAPI (meetUp) {
 			 axios.post(API_URL + '/encuentros', meetUp)
 			.then((data)=>{
+				this.creating = false
 				this.$router.push('/')
 			})
 			.catch((error) => {
+				this.creating = false
 				console.log(error)
 			})
-	    }
+
+	    },
 	}
 }
 </script>

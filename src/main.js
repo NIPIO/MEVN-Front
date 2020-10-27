@@ -10,14 +10,13 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.config.productionTip = false
 Vue.use(VueGeoLocation)
-
 Vue.use(VueGoogleMaps, {
   load: {
 	    key: 'AIzaSyCCGge0AcnsCP2THzX3LI7FIVHObEqYpAo',
-	    libraries: 'places', // This is required if you use the Autocomplete plugin
+	    libraries: 'places',
 	},
-	// installComponents: false
 })
+
 new Vue({
   router,
   store,
