@@ -124,7 +124,7 @@ export default {
 		}
 	},
 	mounted() {
-	/*control de sesion*/ localStorage.getItem('user') != null ? null : this.$router.push('/signin') 
+	// /*control de sesion*/ localStorage.getItem('user') != null ? null : this.$router.push('/signin') 
 			//obtengo las provincias de la api publica
 			axios.get('https://ws.smn.gob.ar/map_items/weather')
 			.then((response)=>{

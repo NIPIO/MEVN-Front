@@ -53,7 +53,7 @@ export default {
 		},
 	},
 	mounted() {
-	/*control de sesion*/ localStorage.getItem('user') != null ? null : this.$router.push('/signin')
+	// /*control de sesion*/ localStorage.getItem('user') != null ? null : this.$router.push('/signin')
 		axios.get(API_URL + '/encuentros')
 		.then(res =>this.meetUps = res.data)
 	}
