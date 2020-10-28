@@ -80,7 +80,7 @@ export default {
 	computed: {
 		//obtengo las localidades de la api publica de acuerdo a la provincia elegida
 		formValid() {
-			return this.provincia !== '' && this.localidad !== '' && this.details !== '' && this.time !== '' &&  this.date !== ''
+			return this.provincia !== '' && this.localidad !== '' && this.time !== '' &&  this.date !== ''
 		}
 	},
 	watch: {
@@ -93,6 +93,7 @@ export default {
 					this.localidades = response.data.filter(task => task.province == val)
 					//solo el campo nombre necesito
 					this.localidades = this.localidades.map(a => a.name);
+					this.localidades.sort();
 				})
 				.catch((error) => {
 					console.log(error)
@@ -115,7 +116,6 @@ export default {
 					}
 					this.lat = climaAPI[0].lat 
 					this.lng = climaAPI[0].lon 
-					console.log(climaAPI[0])
 				})
 				.catch((error) => {
 					console.log(error)
@@ -131,6 +131,7 @@ export default {
 				let prov = response.data.map(a => a.province);
 				//elimino las repetidas
 				this.provincias = prov.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
+				this.provincias.sort();
 			})
 			.catch((error) => {
 				console.log(error)
