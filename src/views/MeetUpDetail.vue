@@ -83,7 +83,8 @@ export default {
 	    	})
 	},
 	async mounted() {
-		// /*control de sesion*/ localStorage.getItem('user') != null ? null : this.$router.push('/signin') 
+		// /*control de sesion*/ 
+		localStorage.getItem('user') != null ? null : this.$router.push('/signin') 
 		await this.meetPromise
   	},
 }
