@@ -78,7 +78,6 @@ export default {
 		}
 	},
 	computed: {
-		//obtengo las localidades de la api publica de acuerdo a la provincia elegida
 		formValid() {
 			return this.provincia !== '' && this.localidad !== '' && this.time !== '' &&  this.date !== ''
 		}

@@ -68,10 +68,10 @@ export default {
   methods: {
     closeSession(title) {
       if(title == 'Sesion') {
-        alert('Esta funcion está desactivada')
-        // localStorage.removeItem('user') 
-        // this.estaLogueado = false
-        // this.$router.push('/signin')
+        // alert('Esta funcion está desactivada')
+        localStorage.removeItem('user') 
+        this.estaLogueado = false
+        this.$router.push('/signin')
       }
     }
   }
