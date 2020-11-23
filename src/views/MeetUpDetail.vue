@@ -77,14 +77,14 @@ export default {
 		}
 	},
 	created() {
-		this.meetPromise = axios.get(API_URL + '/encuentros/' +  this.$route.params.id)
+		this.meetPromise = axios.get(API_URL + '/encuentros/ver/' +  this.$route.params.id)
 	    	.then(res => {
 				this.meetDetail = res.data
 	    	})
 	},
 	async mounted() {
 		// /*control de sesion*/ 
-		localStorage.getItem('user') != null ? null : this.$router.push('/signin') 
+		// localStorage.getItem('user') != null ? null : this.$router.push('/signin') 
 		await this.meetPromise
   	},
 }

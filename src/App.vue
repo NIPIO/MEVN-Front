@@ -57,12 +57,12 @@ export default {
       { route: 'crearEncuentro',  icon: 'room', title: 'Nuevo'},
       { route: '', icon: 'cancel', title: 'Sesion'},
     ],
-    estaLogueado: Boolean
-    // estaLogueado: true  //POR AHORA LO HACEMOS SIN LOGUIN
+    // estaLogueado: Boolean
+    estaLogueado: true  //POR AHORA LO HACEMOS SIN LOGUIN
 
   }),
   mounted() {
-    localStorage.getItem('user') != null ? null : this.estaLogueado = false
+    // localStorage.getItem('user') != null ? null : this.estaLogueado = false
     this.$root.$on('logueoCorrecto', text => this.estaLogueado = text) //text viene del componente Signin
   },
   methods: {
@@ -70,7 +70,7 @@ export default {
       if(title == 'Sesion') {
         // alert('Esta funcion está desactivada')
         localStorage.removeItem('user') 
-        this.estaLogueado = false
+        // this.estaLogueado = false
         this.$router.push('/signin')
       }
     }

@@ -159,7 +159,7 @@ export default {
 			}
 		},
 		createMeetupInAPI (meetUp) {
-			 axios.post(API_URL + '/encuentros', meetUp)
+			 axios.post(API_URL + '/encuentros/nuevo', meetUp)
 			.then((data)=>{
 				this.creating = false
 				this.$router.push('/')

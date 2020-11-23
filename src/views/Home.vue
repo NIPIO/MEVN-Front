@@ -12,7 +12,7 @@
 		    <v-row v-if="meetUps.length>0">
 		    	<v-col xs12>
 					<v-carousel style="cursor:pointer">
-						<v-carousel-item v-for="(item,i) in meetUps" :key="item.id" :src="item.src" reverse-transition="fade-transition" @click="goToMeetup(item._id)" transition="fade-transition">
+						<v-carousel-item v-for="(item,i) in meetUps" :key="item.id" :src="item.src" reverse-transition="fade-transition" @click="goToMeetup(item.id)" transition="fade-transition">
 							<div class="title">
 								<h3>Encuentro en {{item.localidad}}</h3>
 							</div>
@@ -54,7 +54,7 @@ export default {
 	},
 	mounted() {
 	// /*control de sesion*/ 
-		localStorage.getItem('user') != null ? null : this.$router.push('/signin')
+		// localStorage.getItem('user') != null ? null : this.$router.push('/signin')
 		axios.get(API_URL + '/encuentros')
 		.then(res =>this.meetUps = res.data)
 	}

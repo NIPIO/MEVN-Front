@@ -72,7 +72,6 @@
 </template>
 
 <script>
-import * as firebase from 'firebase'
 import { validationMixin } from "vuelidate";
 import { required, minLength, maxLength, email, sameAs } from "vuelidate/lib/validators";
 import { mapMutations } from "vuex";
